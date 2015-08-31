@@ -1,0 +1,6 @@
+*.pyc
+speaknow/settings/local.py
+static/
+media/
+.DS_Store
+build/

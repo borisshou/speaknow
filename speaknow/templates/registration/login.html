@@ -1,0 +1,41 @@
+<h1>Welcome to HelloEvent!</h1>
+
+{# <p><font color="red">Your username and password didn't match. Please try again.</font></p> #}
+<p><font color="red"><b>{% for error in form.non_field_errors %}{{ error }}{% endfor %}</b></font></p>
+
+
+{% if messages %}
+{% for message in messages %}
+<p><font color="green">{{ message }}</font></p><br>
+{% endfor %}
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+    {% else %}
+    <p>Please login to see this page.</p>
+    {% endif %}
+{% endif %}
+
+<form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+    {% csrf_token %}
+    <table>
+        {% for field in form %}
+        <tr align="left">
+            <th>{{ field.label_tag }}{% if field.field.required %}<font color="red">*</font>{% endif %}</th>
+            <th>{{ field }}</th>
+            <th><font color="red">{% for error in field.errors %}{{ error }}{% endfor %}</font></th>
+        </tr>
+        {% endfor %}
+    </table>
+    <input type="submit" value="Login" />
+    <input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+<p><a href="{% url 'signup' %}">Sign up</a></p>
+
+
+{# Assumes you setup the password_reset view in your URLconf #}
+{# <p><a href="{% url 'password_reset' %}">Lost password?</a></p> #}
