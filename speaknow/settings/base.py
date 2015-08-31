@@ -57,9 +57,9 @@ DJANGO_APPS = (
 
 THIRD_PARTY_APPS = (
     'speaknow',
-    #'recording',
-    #'storages',
-    #'boto',
+    'recording',
+    'storages',
+    'boto',
 )
 
 LOCAL_APPS = ()
