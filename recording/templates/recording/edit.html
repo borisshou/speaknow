@@ -1,0 +1,29 @@
+{% load staticfiles %}
+
+<h1>Edit recording "{{ recording.title }}"</h1>
+
+{% if messages %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+{% endif %}
+
+<form action="" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    <table>
+        {% for field in form %}
+        <tr align="left">
+            <td>{{ field.label_tag }}{% if field.field.required %}<font color="red">*</font>{% endif %}</td>
+            <td>{{ field }}</td>
+            <td><font color="red">{% for error in field.errors %}{{ error }}{% endfor %}</font></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+
+    <p>Please do not use non-latin characters in the file name.</p>
+
+    <input type="submit" value="Update" />
+</form>
+
+<a href="{% url 'recording:index' %}"><button>Cancel</button></a>

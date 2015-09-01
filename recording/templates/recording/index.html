@@ -1,0 +1,29 @@
+<h1>Here is an overview of all the recordings you have uploaded: </h1>
+
+
+{% if recording_list %}
+    <table style="width:30%">
+        <tr align="left">
+            <th>Title</th>
+            <th>View</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        {% for recording in recording_list %}
+        <tr>
+            <td>{{ recording.title }}</td>
+            <td><a href="{% url 'recording:detail' recording.id %}"><button>View</button></a></td>
+            <td><a href="{% url 'recording:edit' recording.id %}"><button>Edit</button></a></td>
+            <td><a href="{% url 'recording:delete' recording.id %}"><button>Delete</button></a></td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No recording is available.</p>
+{% endif %}
+
+<br>
+<br>
+<a href="{% url 'recording:create' %}">Upload a new recording</a>
+<br>
+<a href="{% url 'home' %}">Go back</a>

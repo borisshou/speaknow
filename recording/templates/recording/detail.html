@@ -1,0 +1,13 @@
+<h1>Here is the detail of {{ recording.title }}</h1>
+<a href="{% url 'recording:index' %}"><button>Go Back</button></a>
+<p>Title: {{ recording.title }}</p>
+{% if recording.audio %}
+<p>Audio Uploaded: <a href="{{ MEDIA_URL }}{{ recording.audio }}"><button>Download</button></a></p>
+{% endif %}
+{% if recording.description %}
+<p>Description: {{ recording.description }}</p>
+{% endif %}
+{% if recording.last_edited %}
+<p><font color="grey">Last Edited: {{ recording.last_edited }}</font></p>
+{% endif %}
+<a href="{% url 'recording:index' %}"><button>Go Back</button></a>
