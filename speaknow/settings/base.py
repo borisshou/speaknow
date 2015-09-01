@@ -39,7 +39,7 @@ SECRET_KEY = 'x5*ee0w#&-0bm0%hjbcc)9b=&2dfof@&#8=@ku-cy@q94_mf(y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Always set DEBUG = False unless doing debugging online
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
