@@ -104,7 +104,7 @@ WSGI_APPLICATION = 'speaknow.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config()
+    'default': dj_database_url.config(),
 }
 
 # Internationalization
