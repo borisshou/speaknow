@@ -29,8 +29,8 @@ urlpatterns = [
     url(r'^$', RedirectView.as_view(url=reverse_lazy('home'))),
     # ex: /home/
     url(r'^home/$', views.index, name='home'),
-    # ex: /event/...
-    url(r'^event/', include('event.urls', namespace='event')),
+    # ex: /recording/...
+    url(r'^recording/', include('recording.urls', namespace='recording')),
     # ex: /admin/...
     url(r'^admin/', include(admin.site.urls)),
 
@@ -50,14 +50,10 @@ urlpatterns = [
 
     url(r'^profile/$', views.user_profile, name='profile'),
 
-    # JSON API
-    url(r'^api/', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-admin.site.site_header = 'HelloEvent Admin'
+admin.site.site_header = 'SpeakNow Admin'
 

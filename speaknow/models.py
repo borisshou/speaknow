@@ -4,8 +4,8 @@ from django.db.models.signals import post_save
 
 class Learner(models.Model):
     user = models.OneToOneField(User)
-    native_languages = models.CharField(max_length=200, null=False, blank=False)
-    languages_of_study = models.CharField(max_length=200, null=False, blank=False)
+    native_language = models.CharField(max_length=200, null=False, blank=False)
+    language_of_study = models.CharField(max_length=200, null=False, blank=False)
 
     def __unicode__(self):
         return self.user.username
