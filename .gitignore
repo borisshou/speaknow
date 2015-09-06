@@ -3,3 +3,4 @@ speaknow/settings/local.py
 media/
 .DS_Store
 build/
+.idea/workspace.xml

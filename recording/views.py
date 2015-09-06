@@ -9,6 +9,7 @@ from django.db import IntegrityError, transaction
 from django.contrib import messages
 from django.utils import timezone
 
+from .forms import UnicodeUploadForm
 from .models import Recording, Comment
 
 
@@ -47,7 +48,8 @@ class DetailView(generic.DetailView):
 
 class CreateView(generic.edit.CreateView):
     model = Recording
-    fields = ['title', 'audio', 'description']
+    #fields = ['title', 'audio', 'description']
+    form_class = UnicodeUploadForm
     template_name = 'recording/create.html'
     success_url = reverse_lazy('recording:index')
 
@@ -62,7 +64,8 @@ class CreateView(generic.edit.CreateView):
 
 class EditView(generic.edit.UpdateView):
     model = Recording
-    fields = ['title', 'audio', 'description']
+    #fields = ['title', 'audio', 'description']
+    form_class = UnicodeUploadForm
     template_name = 'recording/edit.html'
     success_url = reverse_lazy('recording:index')
 
@@ -88,3 +91,5 @@ class DeleteView(generic.edit.DeleteView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(DeleteView, self).dispatch(*args, **kwargs)
+
+
