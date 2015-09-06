@@ -9,14 +9,13 @@ from speaknow.models import User, Learner
 from .models import Recording, Comment
 
 
-
 class LearnerInline(admin.StackedInline):
     model = Learner
     can_delete = False
 
 # Define a new User admin
 class UserAdmin(UserAdmin):
-    inlines = (LearnerInline, )
+    inlines = (LearnerInline,)
 
 # Re-register UserAdmin
 admin.site.unregister(User)

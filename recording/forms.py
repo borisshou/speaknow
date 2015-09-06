@@ -48,3 +48,19 @@ class UnicodeUploadForm(forms.ModelForm):
                 "Sorry for the inconvenience."
             )
         return data
+
+
+class CommentForm(forms.Form):
+    message = forms.CharField(widget=forms.Textarea, required=False, label='Message')
+    audio = forms.FileField(required=False, label='Audio')
+
+    def clean(self):
+        cleaned_data = super(CommentForm, self).clean()
+        message = cleaned_data.get("message")
+        audio = cleaned_data.get("audio")
+
+        if not (message or audio):
+            # If both fields are missing
+            raise forms.ValidationError(
+                "Please fill in either message or audio if not both."
+            )

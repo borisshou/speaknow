@@ -1,5 +1,31 @@
-<h1>Here is an overview of all the recordings you have uploaded: </h1>
+{# This part will need to be modified in MVP -- all users can see public recordings, not just some with permissions #}
 
+
+{% if perms.speaknow.see_all %}
+<h1>Here is an overview of all the recordings people have uploaded: </h1>
+
+{% if recording_list %}
+    <table style="width:30%">
+        <tr align="left">
+            <th>Title</th>
+            <th>Username</th>
+        </tr>
+        {% for recording in recording_list %}
+        <tr>
+            <td><a href="{% url 'recording:detail' recording.id %}">{{ recording.title }}</a></td>
+            <td>{{ recording.learner }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No recording is available.</p>
+{% endif %}
+
+
+
+{% else %}
+
+<h1>Here is an overview of all the recordings you have uploaded: </h1>
 
 {% if recording_list %}
     <table style="width:30%">
@@ -25,5 +51,12 @@
 <br>
 <br>
 <a href="{% url 'recording:create' %}">Upload a new recording</a>
+
+
+{% endif %}
+
 <br>
+
 <a href="{% url 'home' %}">Go back</a>
+
+

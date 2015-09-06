@@ -14,8 +14,6 @@ class Recording(models.Model):
 class Comment(models.Model):
     learner = models.ForeignKey(Learner, on_delete='CASCADE', related_name='learner')
     recording = models.ForeignKey(Recording, on_delete='CASCADE', related_name='recording')
-    comment = models.TextField(blank=True, null=True, verbose_name='Comment')
+    message = models.TextField(blank=True, null=True, verbose_name='message')
     audio = models.FileField(upload_to='audio/comment', verbose_name='Audio Upload')
     last_edited = models.DateTimeField(null=True, blank=True)
-
-

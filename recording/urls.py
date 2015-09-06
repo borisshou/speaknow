@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/edit/$', views.EditView.as_view(), name='edit'),
     # ex: /recording/1/delete
     url(r'^(?P<pk>[0-9]+)/delete/$', views.DeleteView.as_view(), name='delete'),
-
+    # ex: /recording/comment/1/delete
+    url(r'^comment/(?P<pk>[0-9]+)/delete/$', views.DeleteComment.as_view(), name='delete_comment'),
 ]
 

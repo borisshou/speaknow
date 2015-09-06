@@ -8,6 +8,40 @@
 <p>Description: {{ recording.description }}</p>
 {% endif %}
 {% if recording.last_edited %}
-<p><font color="grey">Last Edited: {{ recording.last_edited }}</font></p>
+<p><font color="grey">{{ recording.last_edited|date:"M d f a" }}</font></p>
 {% endif %}
+
+<br><br>
+
+{% if comments %}
+<h2>Comments</h2>
+{% for comment in comments %}
+<p><b>{{ comment.learner }}:</b> {{ comment.message }}</p>
+{% if comment.audio %}<p>Audio: <a href="{{ MEDIA_URL }}{{ comment.audio }}"><button>Download</button></a></p>{% endif %}
+<p>{% if learner == comment.learner %}<a href="{% url 'recording:delete_comment' comment.id %}">delete</a>{% endif %}
+<font color="grey">{{ comment.last_edited|date:"M d f a" }}</font></p>
+
+<p>------------</p>
+{% endfor %}
+{% endif %}
+
+<br><br>
+
+<h2>Add a comment</h2>
+<form action="" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    <table>
+        {% for field in form %}
+        <tr align="left">
+            <td>{{ field.label_tag }}{% if field.field.required %}<font color="red">*</font>{% endif %}</td>
+            <td>{{ field }}</td>
+            <td><font color="red">{% for error in field.errors %}{{ error }}{% endfor %}</font></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <font color="red">{% for error in form.non_field_errors %}{{ error }}{% endfor %}</font><br>
+    <input type="submit" value="Submit" />
+</form>
+
+
 <a href="{% url 'recording:index' %}"><button>Go Back</button></a>
