@@ -11,9 +11,6 @@ from django.contrib import messages
 from .models import Learner, User
 from .forms import UserForm, UserProfileForm
 
-#from event.models import Event, Logo, AppSkin, NavBar, Button
-
-
 @login_required
 def index(request):
     return render(request, 'home.html')
