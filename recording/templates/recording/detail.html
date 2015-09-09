@@ -2,7 +2,12 @@
 <a href="{% url 'recording:index' %}"><button>Go Back</button></a>
 <p>Title: {{ recording.title }}</p>
 {% if recording.audio %}
-<p>Audio Uploaded: <a href="{{ MEDIA_URL }}{{ recording.audio }}"><button>Download</button></a></p>
+<p>Audio: <a href="{{ MEDIA_URL }}{{ comment.audio }}">Download</a></p>
+<audio controls style="width:480px;">
+<source src="{{ MEDIA_URL }}{{ recording.audio }}" type="audio/mp4" />
+<source src="{{ MEDIA_URL }}{{ recording.audio }}" type="audio/ogg" />
+<p>Your browser does not support HTML5 audio.</p>
+</audio>
 {% endif %}
 {% if recording.description %}
 <p>Description: {{ recording.description }}</p>
@@ -17,7 +22,14 @@
 <h2>Comments</h2>
 {% for comment in comments %}
 <p><b>{{ comment.learner }}:</b> {{ comment.message }}</p>
-{% if comment.audio %}<p>Audio: <a href="{{ MEDIA_URL }}{{ comment.audio }}"><button>Download</button></a></p>{% endif %}
+{% if comment.audio %}
+<p>Audio: <a href="{{ MEDIA_URL }}{{ comment.audio }}">Download</a></p>
+<audio controls style="width:480px;">
+<source src="{{ MEDIA_URL }}{{ comment.audio }}" type="audio/mp4" />
+<source src="{{ MEDIA_URL }}{{ comment.audio }}" type="audio/ogg" />
+<p>Your browser does not support HTML5 audio.</p>
+</audio>
+{% endif %}
 <p>{% if learner == comment.learner %}<a href="{% url 'recording:delete_comment' comment.id %}">delete</a>{% endif %}
 <font color="grey">{{ comment.last_edited|date:"M d f a" }}</font></p>
 
