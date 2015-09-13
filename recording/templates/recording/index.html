@@ -1,62 +1,122 @@
 {# This part will need to be modified in MVP -- all users can see public recordings, not just some with permissions #}
 
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
 
-{% if perms.speaknow.see_all %}
-<h1>Here is an overview of all the recordings people have uploaded: </h1>
+    <title>Home</title>
 
-{% if recording_list %}
-    <table style="width:30%">
-        <tr align="left">
-            <th>Title</th>
-            <th>Username</th>
-        </tr>
-        {% for recording in recording_list %}
-        <tr>
-            <td><a href="{% url 'recording:detail' recording.id %}">{{ recording.title }}</a></td>
-            <td>{{ recording.learner }}</td>
-        </tr>
-    {% endfor %}
-    </table>
-{% else %}
-    <p>No recording is available.</p>
-{% endif %}
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="{% static 'js/ie8-responsive-file-warning.js' %}"></script><![endif]-->
+    <script src="{% static 'js/ie-emulation-modes-warning.js' %}"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  {% include "navbar.html" %}
+
+  <div class="container">
+
+    <div class="col-md-8">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">{% if perms.speaknow.see_all %}All Recordings{% else %}My Recordings{% endif %}</h3>
+          </div>
+          <div class="panel-body">
+            {% if recording_list %}
+              {% if perms.speaknow.see_all %}
+                <div class="row">
+                {% for recording in recording_list %}
+                    <div class="col-md-8">
+                    <a href="{% url 'recording:detail' recording.id %}" class="list-group-item">
+                    {{ recording.title }}
+                    </a>
+                    </div>
+                    <div class="col-md-4">
+                        {{ recording.learner }}
+                    </div>
+                    </a>
+                {% endfor %}
+                </div>
+
+              {% else %}
+                <div class="row">
+                {% for recording in recording_list %}
+                    <div class="col-md-8">
+                    <a href="{% url 'recording:detail' recording.id %}" class="list-group-item">
+                    {{ recording.title }}
+                    </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="{% url 'recording:edit' recording.id %}">
+                        <button type="button" class="btn btn-default btn-md">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+                        </button>
+                        </a>
+                        <a href="{% url 'recording:delete' recording.id %}">
+                        <button type="button" class="btn btn-default btn-md">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
+                        </button>
+                    </div>
+                    </a>
+                {% endfor %}
+                </div>
+              {% endif %}
+            {% else %}
+              <p>No recording is available.</p>
+            {% endif %}
+          </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">My Profile
+                <span class="pull-right">
+                    <a href="{% url 'profile' %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                </span>
+                    </h3>
+            </div>
+            <div class="panel-body">
+                <h5>{{ user.username }}</h5>
+                <p>{{ user.email }}</p>
+                <br>
+                <h5>Native Language(s):</h5>
+                <p>{{ user.learner.native_language }}</p>
+                <h5>Language(s) of Study:</h5>
+                <p>{{ user.learner.language_of_study }}</p>
+            </div>
+        </div>
+    </div>
+
+    </div>
 
 
+        <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
+  </body>
+</html>
 
-{% else %}
-
-<h1>Here is an overview of all the recordings you have uploaded: </h1>
-
-{% if recording_list %}
-    <table style="width:30%">
-        <tr align="left">
-            <th>Title</th>
-            <th>View</th>
-            <th>Edit</th>
-            <th>Delete</th>
-        </tr>
-        {% for recording in recording_list %}
-        <tr>
-            <td>{{ recording.title }}</td>
-            <td><a href="{% url 'recording:detail' recording.id %}"><button>View</button></a></td>
-            <td><a href="{% url 'recording:edit' recording.id %}"><button>Edit</button></a></td>
-            <td><a href="{% url 'recording:delete' recording.id %}"><button>Delete</button></a></td>
-        </tr>
-    {% endfor %}
-    </table>
-{% else %}
-    <p>No recording is available.</p>
-{% endif %}
-
-<br>
-<br>
-<a href="{% url 'recording:create' %}">Upload a new recording</a>
-
-
-{% endif %}
-
-<br>
-
-<a href="{% url 'home' %}">Go back</a>
 
 

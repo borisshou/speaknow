@@ -28,7 +28,8 @@ urlpatterns = [
     # ex: /
     url(r'^$', RedirectView.as_view(url=reverse_lazy('home'))),
     # ex: /home/
-    url(r'^home/$', views.index, name='home'),
+    #url(r'^home/$', views.index, name='home'),
+    url(r'^home/$', RedirectView.as_view(url=reverse_lazy('recording:index')), name='home'),
     # ex: /recording/...
     url(r'^recording/', include('recording.urls', namespace='recording')),
     # ex: /admin/...

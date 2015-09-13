@@ -62,6 +62,7 @@ THIRD_PARTY_APPS = (
     'recording',
     'storages',
     'boto',
+    'bootstrap3',
 )
 
 LOCAL_APPS = ()
