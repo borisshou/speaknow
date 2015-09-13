@@ -66,7 +66,7 @@ class DetailView(generic.edit.FormMixin, generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
         recording = context['recording']
-        context['comments'] = Comment.objects.filter(recording=recording)
+        context['comments'] = Comment.objects.filter(recording=recording).order_by('last_edited')
         context['form'] = self.get_form()
         context['learner'] = self.request.user.learner
         return context

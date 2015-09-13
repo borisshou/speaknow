@@ -51,6 +51,7 @@
                         {{ recording.learner }}
                     </div>
                     </a>
+                    <br><br><br>
                 {% endfor %}
                 </div>
 
@@ -64,16 +65,17 @@
                     </div>
                     <div class="col-md-4">
                         <a href="{% url 'recording:edit' recording.id %}">
-                        <button type="button" class="btn btn-default btn-md">
+                        <button type="button" class="btn btn-default btn-md" style="width:95px">
                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
                         </button>
                         </a>
                         <a href="{% url 'recording:delete' recording.id %}">
-                        <button type="button" class="btn btn-default btn-md">
+                        <button type="button" class="btn btn-default btn-md" style="width:95px">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
                         </button>
                     </div>
                     </a>
+                    <br><br><br>
                 {% endfor %}
                 </div>
               {% endif %}

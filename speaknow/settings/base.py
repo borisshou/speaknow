@@ -63,6 +63,7 @@ THIRD_PARTY_APPS = (
     'storages',
     'boto',
     'bootstrap3',
+    'widget_tweaks',
 )
 
 LOCAL_APPS = ()
