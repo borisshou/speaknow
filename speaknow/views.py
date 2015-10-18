@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotAllowed
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.core.urlresolvers import reverse_lazy
@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
+from django.contrib.auth import views as auth_views
 
 from .models import Learner, User
 from .forms import UserForm, UserProfileForm
@@ -15,11 +16,23 @@ from .forms import UserForm, UserProfileForm
 def index(request):
     return render(request, 'home.html')
 
+def signin_prevent_get(request): # to have two forms on one page - this url is forbidden when having GET request
+    if request.method != 'POST':
+        return HttpResponseNotAllowed('You cannot access this page')
+    else:
+        return auth_views.login(request) # Can only be used for POST when user logs in
+
 class SignUpView(generic.edit.CreateView):
     model = Learner
-    template_name = 'registration/signup.html'
+    template_name = 'registration/login.html'
     success_url = reverse_lazy('login')
     form_class = UserForm
+
+    def get_context_data(self, **kwargs):
+        context = super(SignUpView, self).get_context_data(**kwargs)
+        signup_form = context.pop('form') # differentiate between the forms on the main page
+        context['signup_form'] = signup_form
+        return context
 
     def post(self, request, *args, **kwargs):
         self.object = None
@@ -38,19 +51,21 @@ class SignUpView(generic.edit.CreateView):
             new_user.set_password(form.cleaned_data['password1'])
             #new_user.first_name = form.cleaned_data['first_name']
             #new_user.last_name = form.cleaned_data['last_name']
-            new_user.email = form.cleaned_data['email']
+            #new_user.email = form.cleaned_data['email']
             new_user.save()
 
             new_learner = Learner.objects.get(user=new_user)
-            new_learner.native_language = form.cleaned_data['native_language']
-            new_learner.language_of_study = form.cleaned_data['language_of_study']
+            #new_learner.native_language = form.cleaned_data['native_language']
+            #new_learner.language_of_study = form.cleaned_data['language_of_study']
             new_learner.save()
-            messages.success(self.request, "You have successfully signed up. Log in here.")
-            return HttpResponseRedirect(reverse_lazy('login'))
+            messages.success(self.request, "You have successfully signed up.")
+            return HttpResponseRedirect(self.success_url + '#features') # render the page at a specific position
 
     def form_invalid(self, form):
-        return self.render_to_response(
-            self.get_context_data(form=form))
+        context = self.get_context_data(form=form)
+        context['go_to_features'] = True # Indicate to the page that it needs to be loaded with the section "features"
+        # being displayed - the front end will do the work
+        return self.render_to_response(context)
 
 @login_required
 def user_profile(request):

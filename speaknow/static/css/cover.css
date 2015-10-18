@@ -1,0 +1,221 @@
+/*
+ * Globals
+ */
+
+/* Links */
+
+{% load static from staticfiles %}
+
+a,
+a:focus,
+a:hover {
+  color: #fff;
+}
+
+/* Custom default button */
+.btn-default,
+.btn-default:hover,
+.btn-default:focus {
+  color: #333;
+  text-shadow: none; /* Prevent inheritence from `body` */
+  background-color: #fff;
+  border: 1px solid #fff;
+}
+
+
+/*
+ * Base structure
+ */
+
+html,
+body {
+  height: 100%;
+  background-color: #fff;
+}
+body {
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+
+/* Extra markup and styles for table-esque vertical and horizontal centering */
+.site-wrapper {
+  display: table;
+  width: 100%;
+  height: 100%; /* For at least Firefox */
+  min-height: 100%;
+
+}
+.site-wrapper-inner {
+  display: table-cell;
+  vertical-align: top;
+  background-image: url('../images/cover.jpg');
+  background-repeat: no-repeat;
+  display: compact;
+  background-size: cover;
+}
+.cover-container {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.page-wrapper {
+  color: #000;
+  font-size: 16px;
+  text-shadow: none;
+  display: table;
+  width: 100%;
+  height: 100%; /* For at least Firefox */
+  min-height: 100%;
+  background-color: #fff;
+}
+
+/* Padding for spacing */
+.inner {
+  padding: 30px;
+}
+
+.inner2 {
+  padding: 30px;
+  padding-top: 90px; /* used for all pages except the first page (home) */
+}
+
+
+/*
+ * Header
+ */
+.masthead-brand {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.masthead-nav > li {
+  display: inline-block;
+}
+.masthead-nav > li + li {
+  margin-left: 20px;
+}
+.masthead-nav > li > a {
+  padding-right: 0;
+  padding-left: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff; /* IE8 proofing */
+  color: rgba(255,255,255,.75);
+  border-bottom: 2px solid transparent;
+}
+.masthead-nav > li > a:hover,
+.masthead-nav > li > a:focus {
+  background-color: transparent;
+  border-bottom-color: #a9a9a9;
+  border-bottom-color: rgba(255,255,255,.25);
+}
+.masthead-nav > .active > a,
+.masthead-nav > .active > a:hover,
+.masthead-nav > .active > a:focus {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+@media (min-width: 768px) {
+  .masthead-brand {
+    float: left;
+  }
+  .masthead-nav {
+    float: right;
+  }
+}
+
+
+/*
+ * Cover
+ */
+
+.cover {
+  padding: 0 20px;
+}
+.cover .btn-lg {
+  padding: 10px 20px;
+  font-weight: bold;
+}
+
+
+/*
+ * Footer
+ */
+
+.mastfoot {
+  color: #999; /* IE8 proofing */
+  color: rgba(255,255,255,.5);
+}
+
+
+/*
+ * Affix and center
+ */
+
+@media (min-width: 768px) {
+  /* Pull out the header and footer */
+  .masthead {
+    position: absolute;
+    top: 0;
+  }
+  .mastfoot {
+    position: fixed; /* B.Shou - might need to change this to absolute i/o fixed */
+    bottom: 0;
+  }
+  /* Start the vertical centering */
+  .site-wrapper-inner {
+    vertical-align: middle;
+  }
+  /* Handle the widths */
+  .masthead,
+  .mastfoot,
+  .cover-container {
+    width: 100%; /* Must be percentage or pixels for horizontal alignment */
+  }
+
+}
+
+@media (min-width: 992px) {
+  .masthead,
+  .mastfoot,
+  .cover-container {
+    width: 700px;
+  }
+}
+
+
+/* demo iphone picture on the features page; */
+.demo {
+  height: 80%;
+  width: 80%;
+
+  padding-bottom: 50px;
+}
+
+/* responsive iframe - Google Form survey */
+.iframe-wrapper {
+  position: relative;
+  padding-bottom: 500px;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+.iframe-wrapper iframe, .iframe-wrapper object, .iframe-wrapper embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+
+
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}

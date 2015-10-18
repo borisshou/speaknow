@@ -4,9 +4,9 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 
 class UserForm(UserCreationForm):
-    email = forms.EmailField(label='Email', required=True)
-    native_language = forms.CharField(label='Native Language(s)', required=True)
-    language_of_study = forms.CharField(label='Language(s) of Study', required=True)
+    #email = forms.EmailField(label='Email', required=True)
+    #native_language = forms.CharField(label='Native Language(s)', required=True)
+    #language_of_study = forms.CharField(label='Language(s) of Study', required=True)
 
     class Meta:
         model = User

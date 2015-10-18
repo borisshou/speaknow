@@ -16,7 +16,8 @@
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="{% static 'css/jumbotron.css' %}" rel="stylesheet">
+    <link href="{% static 'css/cover.css' %}" rel="stylesheet">
+    <link href="{% static 'css/signin.css' %}" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="{% static 'js/ie8-responsive-file-warning.js' %}"></script><![endif]-->
@@ -31,45 +32,222 @@
 
   <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">SpeakNow</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right" method="post" action="{% url 'django.contrib.auth.views.login' %}">
-            {% csrf_token %}
-            <div class="form-group">
-              <input id="id_username" name="username" type="text" placeholder="Username" class="form-control">
-            </div>
-            <div class="form-group">
-              <input id="id_password" name="password" type="password" placeholder="Password" class="form-control">
-            </div>
+    <div class="site-wrapper" id="home">
 
-            <button type="submit" class="btn btn-success">Sign in</button>
-            <input type="hidden" name="next" value="{{ next }}" />
-          </form>
-        </div><!--/.navbar-collapse -->
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <div class="masthead clearfix">
+            <div class="inner">
+              {# <h3 class="masthead-brand">Cover</h3> #}
+              <div class="masthead-brand">
+                <img src="{% static 'images/logo_black.png' %}" width="75%" height="75%"/>
+              </div>
+              <nav>
+                <ul class="nav masthead-nav">
+                  <li class="active"><a href="#home">Home</a></li>
+                  <li><a href="#features">Features</a></li>
+                  <li><a href="#testing">Testing</a></li>
+                  <li><a href="#survey">Survey</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+          <div class="inner cover">
+            <h1 class="cover-heading">Why wait?</h1>
+            <p class="lead">Speak a language now and receive feedback from native speakers.</p>
+
+
+            <form id="sign-in" class="form-signin" method="post" action="{% url 'signin' %}">
+              {% csrf_token %}
+              <div class="form-group">
+                <input id="id_username" name="username" type="text" placeholder="Username" class="form-control">
+              </div>
+              <div class="form-group">
+                <input id="id_password" name="password" type="password" placeholder="Password" class="form-control">
+              </div>
+
+              {% if form.errors %}
+              <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <p style="text-shadow:none;">Your username and password did not match. Please try again.</p>
+              </div>
+              {% endif %}
+
+              <button type="submit" class="btn btn-lg btn-default">Sign in</button>
+              <a class="btn btn-lg btn-success sign-up-scroll" href="#features">Sign up</a>
+              <input type="hidden" name="next" value="{{ next }}" />
+            </form>
+
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="cover-container">
+        <div class="masthead">
+          <h3 class="masthead-brand">SpeakNow</h3>
+          <ul class="nav masthead-nav">
+            <li class="active"><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#testing">Testing</a></li>
+            <li><a href="#survey">Survey</a></li>
+          </ul>
+        </div>
       </div>
     </nav>
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-        <h1>Welcome to SpeakNow!</h1>
-        <p>SpeakNow provides language learners an online community to improve their language speaking skills. Users can upload audio files of themselves practicing the language, receive corrections from users who are more familiar with the language, and contribute by providing feedbacks to others.</p>
-        <p><a class="btn btn-primary btn-lg" href="{% url 'signup' %}" role="button">Sign up today &raquo;</a></p>
+
+    <div class="page-wrapper" id="features" style="color:#fff;background-color:#46657E;">
+      <div class="inner2">
+        <div class="container-fluid">
+          <div class="row">
+
+            <div class="col-md-4">
+              <img class="demo" src="{% static 'images/iphone_demo.png' %}" />
+            </div>
+
+            <div class="col-md-4">
+              <br>
+              <div class="media">
+                <div class="media-left">
+                  <img src="{% static 'images/icon_globe.png' %}" height="100" width="100">
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">Anywhere, Anytime</h4>
+                  <p>Pick up your phone or laptop anywhere and anytime and speak something.</p>
+                  <br>
+                </div>
+              </div>
+              <div class="media">
+                <div class="media-left">
+                  <img src="{% static 'images/icon_users.png' %}" height="100", width="100">
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">Growing Resources</h4>
+                  <p>All resources are gathered and posted by users as the community grows.</p>
+                  <br>
+                </div>
+              </div>
+              <div class="media">
+                <div class="media-left">
+                  <img src="{% static 'images/icon_professional.png' %}" height="100" width="100">
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">Professional Advice</h4>
+                  <p>Receive professional advice from native speakers all over the world.</p>
+                  <br>
+                </div>
+              </div>
+              <div class="media">
+                <div class="media-left">
+                  <img src="{% static 'images/icon_conversations.png' %}" height="100" width="100">
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">Mutual Help</h4>
+                  <p>Help others learn a language that you are familiar with.</p>
+                  <br>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 vcenter">
+              <h1>Sign up today</h1>
+                <form id="sign-up" class="form-signin" method="post" action="{% url 'login' %}">
+                  {% csrf_token %}
+                  {% for field in signup_form %}
+                    {# {{ field.label_tag }}{% if field.field.required %}<font color="red">*</font>{% endif %} #}
+                    <input type="{% if 'password' in field.auto_id %}password{% else %}text{% endif %}"
+                           id="{{ field.auto_id }}" class="form-control" name="{{ field.name }}"
+                            placeholder="{{ field.label }}">
+                    <font color="red">{% for error in field.errors %}{{ error }}{% endfor %}</font><br>
+                  {% endfor %}
+
+                  {# Display success message #}
+                  {% if messages %}
+                  {% for message in messages %}
+                  {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                  <div class="alert alert-success alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <p style="text-shadow:none;">You have successfully signed up. Now <a href="#home" id="sign-in-focus"
+                                                                                         style="color:blue">log in here.</a></p>
+                  </div>
+                  {% endif %}
+                  {% endfor %}
+                  {% endif %}
+
+                  <!--
+                  <div class="form-group">
+                    <input id="id_username" name="username" type="text" placeholder="Username" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <input id="id_password" name="password" type="password" placeholder="Password" class="form-control">
+                  </div>
+                  -->
+                  <button type="submit" class="btn btn-lg btn-success">Sign up</button>
+                  <input type="hidden" name="next" value="{{ next }}" />
+                </form>
+              {% if go_to_features %}<input type="hidden" id="check-go-to-features">{% endif %}
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
 
 
-    <!-- INSERT 3 HEADINGS AND FOOTNOTE HERE -->
+
+
+    <div class="page-wrapper" id="testing" style="background-color:#71A2CB;">
+      <div class="inner2">
+        <div class="cover-container">
+          <h1>Try our core service today</h1>
+          <br>
+          <h4>Current language(s) supported: Mandarin</h4>
+          <br>
+          <div class="panel panel-default">
+            <div class="panel-body" style="text-align: left">
+              <p>One way to participate is ...</p>
+              <ul>
+                <li>Sign up and log in</li>
+                <li>Upload an audio in one of the current languages supported</li>
+                <li>We will provide you with feedback immediately</li>
+              </ul>
+              <br>
+              <p>Another way to participate is ...</p>
+              <ul>
+                <li>Use your phone to record an audio in one of the current languages supported</li>
+                <li>Send the audio to speaknow@gmail.com</li>
+                <li>You may also provide us with your username on SpeakNow</li>
+                <li>We will upload your audio to the website and provide you with feeback immediately</li>
+                <li>If you have not created an account yet, we will help you create one</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="page-wrapper" id="survey" style="background-color:#D7EDFE;">
+      <div class="inner2 cover-container">
+        <div class="container-fluid">
+          <h1>Help us fill out this survey!</h1>
+          <div class="iframe-wrapper">
+            <iframe src="https://docs.google.com/a/colgate.edu/forms/d/1BOvI3QAfWj_RJrqiVkrQ_OjiMW8CZQXQ_DjUVhzAwVg/viewform?embedded=true"
+                    frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
 
     <!-- Bootstrap core JavaScript
@@ -79,6 +257,76 @@
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
+    <script>
+      (function ($) {
+        $(document).ready(function(){
+
+          // focus on the sign-in username field
+          $('#sign-in #id_username').focus();
+
+          // if Django asks for the page to be scrolled down to the features section
+          if ( $('#check-go-to-features').length ){
+            $('html, body').scrollTop($('#features').offset().top);
+          }
+
+          // hide .navbar first
+          $(".navbar").hide();
+
+          // fade in .navbar
+          $(function () {
+              $(window).scroll(function () {
+                  // set distance user needs to scroll before we fadeIn navbar
+                  if ($(this).scrollTop() > 100) {
+                      $('.navbar').fadeIn();
+                  } else {
+                      $('.navbar').hide(); // do not use fadeOut() here or it will look bad
+                  }
+              });
+
+
+          });
+
+      });
+        }(jQuery));
+
+
+      /* highlight the top nav as scrolling occurs */
+      $('body').scrollspy({ target: '.navbar' })
+
+
+      /* smooth scrolling for nav sections */
+      $('.nav li>a').click(function(){
+        var link = $(this).attr('href');
+        var posi = $(link).offset().top;
+        $('body,html').animate({scrollTop:posi},700);
+      });
+
+      /* smooth scrolling and auto-focus for "sign up" */
+      $('.sign-up-scroll').click(function(){
+        var link = $(this).attr('href');
+        var posi = $(link).offset().top;
+        $('body,html').animate({scrollTop:posi},700);
+        $('#sign-up #id_username').focus();
+      });
+
+      /* focus on the first input of sign-in */
+      $('#sign-in-focus').click(function() {
+        $('#sign-in #id_username').focus();
+      });
+
+    </script>
+
+    <!-- Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-68998112-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
   </body>
 </html>
-
