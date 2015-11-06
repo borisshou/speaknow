@@ -27,6 +27,7 @@ a:hover {
  * Base structure
  */
 
+
 html,
 body {
   height: 100%;
@@ -211,11 +212,6 @@ body {
 }
 
 
-
-
-
-.vcenter {
-  display: inline-block;
-  vertical-align: middle;
-  float: none;
+.top-buffer {
+  margin-top: 100px;
 }

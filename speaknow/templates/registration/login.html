@@ -76,8 +76,8 @@
               </div>
               {% endif %}
 
-              <button type="submit" class="btn btn-lg btn-default">Sign in</button>
-              <a class="btn btn-lg btn-success sign-up-scroll" href="#features">Sign up</a>
+              <button type="submit" class="btn btn-lg btn-default">Login</button>
+              <a class="btn btn-lg btn-success sign-up-scroll" href="#sign-up-form">Sign up</a>
               <input type="hidden" name="next" value="{{ next }}" />
             </form>
 
@@ -131,7 +131,7 @@
                   <img src="{% static 'images/icon_users.png' %}" height="100", width="100">
                 </div>
                 <div class="media-body">
-                  <h4 class="media-heading">Growing Resources</h4>
+                  <h4 class="media-heading">Endless Resources</h4>
                   <p>All resources are gathered and posted by users as the community grows.</p>
                   <br>
                 </div>
@@ -141,8 +141,8 @@
                   <img src="{% static 'images/icon_professional.png' %}" height="100" width="100">
                 </div>
                 <div class="media-body">
-                  <h4 class="media-heading">Professional Advice</h4>
-                  <p>Receive professional advice from native speakers all over the world.</p>
+                  <h4 class="media-heading">Free Advice</h4>
+                  <p>Receive advice from native speakers all over the world for free.</p>
                   <br>
                 </div>
               </div>
@@ -158,7 +158,8 @@
               </div>
             </div>
 
-            <div class="col-md-4 vcenter">
+            <div class="col-md-4" id="sign-up-form">
+              <div class="row top-buffer"></div>
               <h1>Sign up today</h1>
                 <form id="sign-up" class="form-signin" method="post" action="{% url 'login' %}">
                   {% csrf_token %}
@@ -218,7 +219,7 @@
               <ul>
                 <li>Sign up and log in</li>
                 <li>Upload an audio in one of the current languages supported</li>
-                <li>We will provide you with feedback immediately</li>
+                <li>We will provide you with feedback in 24 hours</li>
               </ul>
               <br>
               <p>Another way to participate is ...</p>
@@ -227,7 +228,7 @@
                 <li>Send the audio to speaknow@gmail.com</li>
                 <li>You may also provide us with your username on SpeakNow</li>
                 <li>We will upload your audio to the website and provide you with feeback immediately</li>
-                <li>If you have not created an account yet, we will help you create one</li>
+                <li>If you have not created an account, we will help you create one</li>
               </ul>
             </div>
           </div>
@@ -238,13 +239,13 @@
 
     <div class="page-wrapper" id="survey" style="background-color:#D7EDFE;">
       <div class="inner2 cover-container">
-        <div class="container-fluid">
+
           <h1>Help us fill out this survey!</h1>
           <div class="iframe-wrapper">
             <iframe src="https://docs.google.com/a/colgate.edu/forms/d/1BOvI3QAfWj_RJrqiVkrQ_OjiMW8CZQXQ_DjUVhzAwVg/viewform?embedded=true"
                     frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
           </div>
-        </div>
+
       </div>
     </div>
 
@@ -258,40 +259,38 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
     <script>
-      (function ($) {
-        $(document).ready(function(){
 
-          // focus on the sign-in username field
-          $('#sign-in #id_username').focus();
+    $(document).ready(function(){
 
-          // if Django asks for the page to be scrolled down to the features section
-          if ( $('#check-go-to-features').length ){
-            $('html, body').scrollTop($('#features').offset().top);
-          }
+      // focus on the sign-in username field
+      $('#sign-in #id_username').focus();
 
-          // hide .navbar first
-          $(".navbar").hide();
+      // if Django asks for the page to be scrolled down to the features section
+      if ( $('#check-go-to-features').length ){
+        $('html, body').scrollTop($('#features').offset().top);
+      }
 
-          // fade in .navbar
-          $(function () {
-              $(window).scroll(function () {
-                  // set distance user needs to scroll before we fadeIn navbar
-                  if ($(this).scrollTop() > 100) {
-                      $('.navbar').fadeIn();
-                  } else {
-                      $('.navbar').hide(); // do not use fadeOut() here or it will look bad
-                  }
-              });
-
-
-          });
+      // hide .navbar first
+      $(".navbar").hide();
 
       });
-        }(jQuery));
 
+
+
+      // fade in .navbar
+      $(function () {
+          $(window).scroll( function () {
+              // set distance user needs to scroll before we fadeIn navbar
+              if ($(this).scrollTop() > 100) {
+                  $('.navbar').fadeIn();
+              } else {
+                  $('.navbar').hide(); // do not use fadeOut() here or it will look bad
+              }
+          });
+      });
 
       /* highlight the top nav as scrolling occurs */
-      $('body').scrollspy({ target: '.navbar' })
+      $('body').scrollspy({ target: '.navbar' });
 
 
       /* smooth scrolling for nav sections */
@@ -300,6 +299,7 @@
         var posi = $(link).offset().top;
         $('body,html').animate({scrollTop:posi},700);
       });
+
 
       /* smooth scrolling and auto-focus for "sign up" */
       $('.sign-up-scroll').click(function(){
