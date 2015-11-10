@@ -20,3 +20,6 @@ def create_learner(sender, instance, created, **kwargs):
         learner, created = Learner.objects.get_or_create(user=instance)
 
 post_save.connect(create_learner, sender=User)
+
+
+

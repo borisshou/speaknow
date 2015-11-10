@@ -38,6 +38,14 @@
             <h3 class="panel-title">{% if perms.speaknow.see_all %}All Recordings{% else %}My Recordings{% endif %}</h3>
           </div>
           <div class="panel-body">
+
+          <a class="pull-center" href="{% url 'recording:create' %}">
+            <button type="button" class="btn btn-info btn-md">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create an audio
+            </button>
+          </a>
+              <br><br>
+
             {% if recording_list %}
               {% if perms.speaknow.see_all %}
                 <div class="row">
