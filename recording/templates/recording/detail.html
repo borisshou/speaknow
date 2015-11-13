@@ -62,7 +62,7 @@
         <h3>Comments</h3>
         {% for comment in comments %}
         <div class="well">
-            <p><b>{{ comment.learner }}:</b> {{ comment.message }}</p>
+            <p><b>{{ comment.learner }}:</b> {{ comment.message|safe }}</p>
             {% if comment.audio %}
             <audio controls>
             <source src="{{ MEDIA_URL }}{{ comment.audio }}" type="audio/mp4" />
