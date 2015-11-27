@@ -7,6 +7,7 @@ class Recording(models.Model):
     audio = models.FileField(upload_to='audio/recording', verbose_name='Audio Upload')
     description = models.TextField(blank=True, null=True, verbose_name='Description')
     #language = models.ForeignKey(Language, on_delete='CASCADE')
+    language = models.CharField(max_length=30, verbose_name='Language', null=True)
     last_edited = models.DateTimeField(null=True, blank=True)
 
     def __unicode__(self):
