@@ -34,7 +34,7 @@ class UnicodeFileField(forms.FileField):
 class UnicodeUploadForm(forms.ModelForm):
     class Meta:
         model = Recording
-        fields = ['title', 'audio', 'description']
+        fields = ['title', 'language', 'audio', 'description']
 
     #title = forms.CharField(label='Title', max_length=200, required=True)
     #audio = UnicodeFileField(label='Audio Upload', required=True)
