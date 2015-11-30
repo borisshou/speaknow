@@ -17,8 +17,8 @@
 (function(window){
   window.Fr = window.Fr || {};
 	Fr.voice = {
-    workerPath: "/static/js/recorder/recorderWorker.js",
-    mp3WorkerPath: "/static/js/recorder/mp3Worker.js",
+    workerPath: window.workerPath,
+    mp3WorkerPath: window.mp3WorkerPath,
     stream: false,
     
     init_called: false,

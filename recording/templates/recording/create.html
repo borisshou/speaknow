@@ -97,6 +97,14 @@
 
         <!-- Bootstrap core JavaScript
     ================================================== -->
+
+    <!--Global variables used across multiple .js files-->
+    <script>
+        window.workerPath = "{% static 'js/recorder/recorderWorker.js' %}";
+        window.mp3WorkerPath = "{% static 'js/recorder/mp3Worker.js' %}";
+    </script>
+
+
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
