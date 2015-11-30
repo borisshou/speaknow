@@ -8,6 +8,9 @@ from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.contrib.staticfiles.templatetags.staticfiles import static
+import requests
 
 from .models import Learner, User
 from .forms import UserForm, UserProfileForm
@@ -89,3 +92,24 @@ def user_profile(request):
         form = UserProfileForm(learner=learner)
     return render(request, 'registration/user_profile.html', context={'form': form})
 
+
+
+
+def find_js_recorderWorker(request):
+    if settings.DEBUG: # local
+        url = "http://" + request.get_host() + static('js/recorder/recorderWorker.js')
+    else: # deployed
+        url = static('js/recorder/recorderWorker.js') # will obtain an Amazon S3 storage address such as follows
+        #url = 'https://speaknowapp.s3.amazonaws.com/static/js/recorder/recorderWorker.js?Signature=P%2Fz%2BpLnETvlyyf%2FJ9HtYRz0ljZA%3D&Expires=1448860345&AWSAccessKeyId=AKIAJVNNABYOMGHAVMJA'
+    r = requests.get(url)
+    return HttpResponse(r.text, content_type = "application/javascript")
+
+
+def find_js_mp3Worker(request):
+    if settings.DEBUG: # local
+        url = "http://" + request.get_host() + static('js/recorder/mp3Worker.js')
+    else: # deployed
+        url = static('js/recorder/mp3Worker.js') # will obtain an Amazon S3 storage address such as follows
+        #url = 'https://speaknowapp.s3.amazonaws.com/static/js/recorder/recorderWorker.js?Signature=P%2Fz%2BpLnETvlyyf%2FJ9HtYRz0ljZA%3D&Expires=1448860345&AWSAccessKeyId=AKIAJVNNABYOMGHAVMJA'
+    r = requests.get(url)
+    return HttpResponse(r.text, content_type = "application/javascript")

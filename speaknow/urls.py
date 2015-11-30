@@ -60,6 +60,11 @@ urlpatterns = [
 
     url(r'^profile/$', views.user_profile, name='profile'),
 
+
+    # for access of .js files for recorder -- JavaScript Web Workers require that they be from the same origin, not Amazon S3 (a different origin)
+    url(r'^recorder/recorderWorker.js$', views.find_js_recorderWorker),
+    url(r'^recorder/mp3Worker.js$', views.find_js_mp3Worker)
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
