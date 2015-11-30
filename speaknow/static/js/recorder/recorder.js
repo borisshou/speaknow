@@ -14,7 +14,8 @@
     this.node = (this.context.createScriptProcessor ||
                  this.context.createJavaScriptNode).call(this.context,
                                                          bufferLen, 2, 2);
-    var worker = new Worker(config.workerPath || WORKER_PATH);
+    //var worker = new Worker(config.workerPath || WORKER_PATH);
+    var worker = new Worker(config.workerPath);
     worker.postMessage({
       command: 'init',
       config: {

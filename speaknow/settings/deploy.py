@@ -15,7 +15,8 @@ if not settings.DEBUG:
     # MEDIA_ROOT and STATIC_ROOT are superceded by DEFAULT_FILE_STORAGE and STATICFILES_STORAGE respectively
     # and hence not needed.
 
-    STATIC_URL = S3_URL + 'static/'
+    #STATIC_URL = S3_URL + 'static/'
+    STATIC_URL = '/static/'
     MEDIA_URL = S3_URL + 'media/'
 
 
