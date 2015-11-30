@@ -18,9 +18,6 @@
     <!-- Bootstrap core CSS -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
-    <!-- recorder css -->
-    <link href="{% static 'css/recorder.css' %}" rel="stylesheet">
-
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="{% static 'js/ie8-responsive-file-warning.js' %}"></script><![endif]-->
     <script src="{% static 'js/ie-emulation-modes-warning.js' %}"></script>
@@ -40,38 +37,31 @@
             <h1>Create an audio</h1>
       </div>
         <br><br>
+    <!--
+    <form action="" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <table>
+            {% for field in form %}
+            <tr align="left">
+                <td>{{ field.label_tag }}{% if field.field.required %}<font color="red">*</font>{% endif %}</td>
+                <td>{{ field }}</td>
+                <td><font color="red">{% for error in field.errors %}{{ error }}{% endfor %}</font></td>
+            </tr>
+            {% endfor %}
+        </table>
 
+        <br>
+
+        <input type="submit" value="Create" />
+    </form>
+
+
+    -->
 
     <div class="well">
         <br>
-        <form action="" enctype="multipart/form-data" method="post" class="form-horizontal" id="form">
+        <form action="" enctype="multipart/form-data" method="post" class=form-horizontal>
             {% csrf_token %}
-
-            <div class="form-group">
-
-                <div class="col-sm-2 control-label">
-                    <b>Recorder:</b><font color="red">*</font>
-                    <h4><span class="label label-danger" id="in-progress" style="visibility: hidden">Recording in progress ...</span></h4>
-                </div>
-                <div class="col-sm-4">
-                <audio controls src="" id="audio"></audio>
-                <div style="margin:10px;">
-                    <a class="btn btn-primary" id="record">Record</a>
-                    <a class="btn btn-primary disabled one" id="stop">Reset</a>
-                    <a class="btn btn-primary disabled one" id="play">Play</a>
-                </div>
-                <input class="button" type="checkbox" id="live"/>
-                <label for="live">Live Output</label>
-               </div>
-                <div class="col-sm-6">
-                    <div class="alert alert-info" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                        Please ensure that you are using Chrome or Firefox so that the recorder can work.</div>
-                </div>
-            </div>
-
             <div class="form-group">
                 {% for field in form %}
                     <div class="col-sm-2 control-label">{{ field.label_tag }}{% if field.field.required %}<font color="red">*</font>{% endif %}</div>
@@ -85,8 +75,8 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <input type="submit" class="btn btn-success">
-                    <a class="btn btn-danger" id="go-back" href="{% url 'recording:index' %}">Cancel</a>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <a class="btn btn-danger" href="{% url 'recording:index' %}">Cancel</a>
                 </div>
             </div>
         </form>
@@ -102,54 +92,6 @@
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
-
-    <!-- recorder js -->
-    <script src="{% static 'js/recorder/recorder.js' %}"></script>
-    <script src="{% static 'js/recorder/Fr.voice.js' %}"></script>
-    <script src="{% static 'js/recorder/record.js' %}"></script>
-
-
-    <script>
-        $("#form").submit(function(event) {
-          var form = this;
-          var formData = new FormData(form);
-
-          var audioBlob = dataURItoBlob($('#audio').attr('src'));
-          var audioFile = new File([audioBlob], "recording.wav");
-          formData.append('audio', audioFile);
-
-          $.ajax({
-              url: form.action,
-              type: "POST",
-              data: formData,
-              processData: false,
-              contentType: false,
-              success: function() {
-                window.location.replace('../');
-              }
-            });
-
-          event.preventDefault();
-          //window.location('recording/');
-
-          //$('#go-back').click();
-
-          //return false;
-
-        });
-
-        // This function converts the base64 WAV encoding into a blob
-        var dataURItoBlob = function(dataURI) {
-            var binary = window.atob(dataURI.split(',')[1]);
-
-            var array = [];
-            for(var i = 0; i < binary.length; i++) {
-                array.push(binary.charCodeAt(i));
-            }
-            return new Blob([new Uint8Array(array)], { type: "audio/wav" });
-        };
-    </script>
-
 
     <!-- Google Analytics -->
     <script>

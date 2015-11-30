@@ -34,20 +34,27 @@ class UnicodeFileField(forms.FileField):
 class UnicodeUploadForm(forms.ModelForm):
     class Meta:
         model = Recording
-        fields = ['title', 'language', 'audio', 'description']
+        #fields = ['title', 'language', 'audio', 'description']
+        fields = ['title', 'language', 'description']
 
     #title = forms.CharField(label='Title', max_length=200, required=True)
     #audio = UnicodeFileField(label='Audio Upload', required=True)
     #description = forms.CharField(widget=forms.Textarea, required=False)
 
-    def clean_audio(self):
-        data = self.cleaned_data['audio']
-        if not all(ord(c) < 128 for c in data.name):
-            raise forms.ValidationError(
-                "The system currently does not support non-latin characters in the file name. "
-                "Sorry for the inconvenience."
-            )
-        return data
+    # def clean_audio(self):
+    #     data = self.cleaned_data['audio']
+    #     if not all(ord(c) < 128 for c in data.name):
+    #         raise forms.ValidationError(
+    #             "The system currently does not support non-latin characters in the file name. "
+    #             "Sorry for the inconvenience."
+    #         )
+    #     return data
+
+    # def __init__(self, *args, **kwargs):
+    #     self.request = kwargs.pop('request', None)
+    #     super(UnicodeUploadForm, self).__init__(*args, **kwargs)
+    #
+    # def clean(self):
 
 
 class CommentForm(forms.Form):

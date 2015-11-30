@@ -8,6 +8,8 @@ from django.forms.formsets import formset_factory
 from django.db import IntegrityError, transaction
 from django.contrib import messages
 from django.utils import timezone
+from django.core.exceptions import ValidationError
+
 
 from .forms import UnicodeUploadForm, CommentForm
 from .models import Recording, Comment
@@ -129,11 +131,21 @@ class CreateView(generic.edit.CreateView):
     def form_valid(self, form):
         form.instance.learner = self.request.user.learner
         form.instance.last_edited = timezone.now()
+
+        if not 'audio' in self.request.FILES.keys(): # If the user did not record any audio
+                                                    # Then go back to form validation and invalidate the field
+            form.add_error(None, ValidationError('Please record an audio.'))
+            return self.form_invalid(form)
+        form.instance.audio = self.request.FILES['audio'] # Saves the freshly recorded audio into the audio field
+                                                            # so that it is stored into the media folder later
         return super(CreateView, self).form_valid(form)
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(CreateView, self).dispatch(*args, **kwargs)
+
+    def post(self, *args, **kwargs):
+        return super(CreateView, self).post(*args, **kwargs)
 
 class EditView(generic.edit.UpdateView):
     model = Recording
