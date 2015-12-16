@@ -1,6 +1,6 @@
 # SpeakNow
 
-SpeakNow is a language exchange platform for language enthusiasts to practic speaking. Users upload recordings of themselves speaking a new language and critique other recordings done in their native languages. The website provides resources as well as incentives for practice. 
+SpeakNow is a language exchange platform for language enthusiasts to practice speaking. Users upload recordings of themselves speaking a new language and critique other recordings done in their native languages. The website provides resources as well as incentives for practice. 
 
 [Live Website Here](https://speaknow.herokuapp.com/)
 
